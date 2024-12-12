@@ -1,10 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://c0ovbmuwvax0v"]
+[gd_scene load_steps=8 format=3 uid="uid://c0ovbmuwvax0v"]
 
 [ext_resource type="Script" path="res://Mgame13/mgame13.gd" id="1_neobc"]
 [ext_resource type="PackedScene" uid="uid://c83sgl4h14273" path="res://game_over.tscn" id="2_34bc8"]
-[ext_resource type="Texture2D" uid="uid://cn2bbshfekcnl" path="res://Client.png" id="3_1tci4"]
 [ext_resource type="Texture2D" uid="uid://ds0enfeqaoqo" path="res://Border.png" id="3_7mjuy"]
 [ext_resource type="PackedScene" uid="uid://ih31k1u8xvg7" path="res://music_player.tscn" id="4_5tvvx"]
+[ext_resource type="Texture2D" uid="uid://bvph1iaieomkd" path="res://Mgame13/Hintergrund.png" id="4_xm1b8"]
+[ext_resource type="Texture2D" uid="uid://bla350u5d6ksr" path="res://Mgame13/Einkaufswagen.PNG" id="6_dmwqo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ujd5h"]
+size = Vector2(14, 11)
 
 [node name="Mgame13" type="Node2D"]
 script = ExtResource("1_neobc")
@@ -15,17 +19,23 @@ z_index = 5
 texture = ExtResource("3_7mjuy")
 
 [node name="BG" type="Sprite2D" parent="."]
-modulate = Color(0.277528, 0.277528, 0.277528, 1)
+modulate = Color(0.699653, 0.699654, 0.699653, 1)
 z_index = -1
-position = Vector2(-0.499998, 0.499999)
-scale = Vector2(0.378906, 0.378906)
-texture = ExtResource("3_1tci4")
+position = Vector2(-0.5, -0.500003)
+scale = Vector2(0.0790349, 0.0790349)
+texture = ExtResource("4_xm1b8")
 
 [node name="MusicPlayer" parent="." instance=ExtResource("4_5tvvx")]
 
-[node name="Label" type="Label" parent="."]
-offset_left = -45.0
-offset_top = -50.0
-offset_right = 91.0
-offset_bottom = 23.0
-text = "Your Game!"
+[node name="Einkaufswagen" type="Area2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Einkaufswagen"]
+position = Vector2(3, 23)
+scale = Vector2(0.04, 0.04)
+texture = ExtResource("6_dmwqo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Einkaufswagen"]
+position = Vector2(3, 38)
+shape = SubResource("RectangleShape2D_ujd5h")
+
+[connection signal="area_entered" from="Einkaufswagen" to="." method="_on_einkaufswagen_area_entered"]

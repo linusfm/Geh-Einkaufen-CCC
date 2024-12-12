@@ -323,4 +323,3 @@ func _on_tut_spawn_timer_timeout():
 func _on_menue_enabler_timeout():
 	menue_enabled = true
 	
-

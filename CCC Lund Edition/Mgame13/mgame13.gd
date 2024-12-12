@@ -7,6 +7,7 @@ signal win(paneln)
 @export var transition: PackedScene
 
 ### Internal Constants
+var wagen_speed = 20
 
 ### Variables
 
@@ -49,4 +50,9 @@ func _process(delta):
 	if Input.is_action_just_pressed("newgame"):
 		enable()
 	if Input.is_action_pressed("Left") and active == true:
-		pass
+		$Einkaufswagen.position.x -= wagen_speed * delta
+	if Input.is_action_pressed("Right") and active == true:
+		$Einkaufswagen.position.x += wagen_speed * delta
+
+func _on_einkaufswagen_area_entered(area: Area2D):
+	pass # Replace with function body.
