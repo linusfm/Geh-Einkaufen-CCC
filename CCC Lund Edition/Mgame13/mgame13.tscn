@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://c0ovbmuwvax0v"]
+
+[ext_resource type="Script" path="res://Mgame13/mgame13.gd" id="1_neobc"]
+[ext_resource type="PackedScene" uid="uid://c83sgl4h14273" path="res://game_over.tscn" id="2_34bc8"]
+[ext_resource type="Texture2D" uid="uid://cn2bbshfekcnl" path="res://Client.png" id="3_1tci4"]
+[ext_resource type="Texture2D" uid="uid://ds0enfeqaoqo" path="res://Border.png" id="3_7mjuy"]
+[ext_resource type="PackedScene" uid="uid://ih31k1u8xvg7" path="res://music_player.tscn" id="4_5tvvx"]
+
+[node name="Mgame13" type="Node2D"]
+script = ExtResource("1_neobc")
+transition = ExtResource("2_34bc8")
+
+[node name="Border" type="Sprite2D" parent="."]
+z_index = 5
+texture = ExtResource("3_7mjuy")
+
+[node name="BG" type="Sprite2D" parent="."]
+modulate = Color(0.277528, 0.277528, 0.277528, 1)
+z_index = -1
+position = Vector2(-0.499998, 0.499999)
+scale = Vector2(0.378906, 0.378906)
+texture = ExtResource("3_1tci4")
+
+[node name="MusicPlayer" parent="." instance=ExtResource("4_5tvvx")]
+
+[node name="Label" type="Label" parent="."]
+offset_left = -45.0
+offset_top = -50.0
+offset_right = 91.0
+offset_bottom = 23.0
+text = "Your Game!"
