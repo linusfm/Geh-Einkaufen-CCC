@@ -9,9 +9,12 @@ signal win(paneln)
 ### Internal Constants
 var wagen_speed = 20
 var ueberlappung_wagen_katzenfutter = false
-var falling_dose = false
+var ueberlappung_wagen_hundefutter1 = false
 var im_wagen = false
+var falling_dose = ""
+var inhalt = ""
 var start_KF = Vector2(-5, -5)
+var start_HF1 = Vector2(10,-5)
 ### Variables
 
 func set_active(b):
@@ -23,6 +26,7 @@ func set_active(b):
 	
 func new_game():
 	$Katzenfutter/Sprite2DK.position = start_KF
+	$Hundefutter1/Sprite2DH1.position = start_HF1
 
 func enable():
 	if get_node("GameOver"):
@@ -57,29 +61,46 @@ func _process(delta):
 	if $Einkaufswagen.position.x > -30:
 		if Input.is_action_pressed("Left") and active == true:
 			$Einkaufswagen.position.x -= wagen_speed * delta
-			if im_wagen == true:
+			if inhalt == "KF":
 				$Katzenfutter/Sprite2DK.position.x -= wagen_speed * delta
+			if inhalt == "HF1":
+				$Hundefutter1/Sprite2DH1.position.x -= wagen_speed * delta
 	if $Einkaufswagen.position.x < 25:
 		if Input.is_action_pressed("Right") and active == true:
 			$Einkaufswagen.position.x += wagen_speed * delta
-			if im_wagen == true:
+			if inhalt == "KF":
 				$Katzenfutter/Sprite2DK.position.x += wagen_speed * delta
+			if inhalt == "HF1":
+				$Hundefutter1/Sprite2DH1.position.x += wagen_speed * delta
 	if ueberlappung_wagen_katzenfutter:
 		if Input.is_action_pressed("Down") and active == true: 
-			falling_dose = true
+			falling_dose = "KF"
 	if ueberlappung_wagen_katzenfutter:
 		if Input.is_action_pressed("Up") and active == true: 
-			falling_dose = true
-	if falling_dose == true:
-		falling_dose = false
-		var ziel_pos = Vector2($Einkaufswagen/Sprite2DE.position.x - 10, $Einkaufswagen/Sprite2DE.position.y - 10)
-		if Input.is_action_pressed("Down") and active == true and im_wagen == false:
-			$Katzenfutter/Sprite2DK.position = ziel_pos
-			im_wagen = true 
-		if Input.is_action_pressed("Up") and active == true and im_wagen == true:
+			falling_dose = "KF"
+	if ueberlappung_wagen_hundefutter1:
+		if Input.is_action_pressed("Down") and active == true: 
+			falling_dose = "HF1"
+	if ueberlappung_wagen_hundefutter1:
+		if Input.is_action_pressed("Up") and active == true: 
+			falling_dose = "HF1"
+	if falling_dose == "KF":
+		falling_dose = ""
+		if Input.is_action_pressed("Down") and active == true and inhalt == "":
+			$Katzenfutter/Sprite2DK.position = Vector2(-5,16)
+			inhalt = "KF"
+		if Input.is_action_pressed("Up") and active == true and inhalt == "KF":
 			$Katzenfutter/Sprite2DK.position = start_KF
-			im_wagen = false
-			
+			inhalt = ""
+	if falling_dose == "HF1":
+		falling_dose = ""
+		var ziel_pos = $Einkaufswagen/Sprite2DE.position
+		if Input.is_action_pressed("Down") and active == true and inhalt == "":
+			$Hundefutter1/Sprite2DH1.position = Vector2(10,16)
+			inhalt = "HF1"
+		if Input.is_action_pressed("Up") and active == true and inhalt == "HF1":
+			$Hundefutter1/Sprite2DH1.position = start_HF1
+			inhalt = ""
 
 func _on_katzenfutter_area_entered(area: Area2D):
 	ueberlappung_wagen_katzenfutter = true
@@ -87,3 +108,12 @@ func _on_katzenfutter_area_entered(area: Area2D):
 
 func _on_katzenfutter_area_exited(area: Area2D):
 	ueberlappung_wagen_katzenfutter = false 
+
+
+func _on_hundefutter_1_area_entered(area: Area2D):
+	ueberlappung_wagen_hundefutter1 = true
+	print("ueberlappung_wagen_hundefutter1")
+
+
+func _on_hundefutter_1_area_exited(area: Area2D):
+	ueberlappung_wagen_hundefutter1 = false

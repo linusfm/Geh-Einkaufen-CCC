@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c0ovbmuwvax0v"]
+[gd_scene load_steps=12 format=3 uid="uid://c0ovbmuwvax0v"]
 
 [ext_resource type="Script" path="res://Mgame13/mgame13.gd" id="1_neobc"]
 [ext_resource type="PackedScene" uid="uid://c83sgl4h14273" path="res://game_over.tscn" id="2_34bc8"]
@@ -7,12 +7,16 @@
 [ext_resource type="Texture2D" uid="uid://bvph1iaieomkd" path="res://Mgame13/Hintergrund.png" id="4_xm1b8"]
 [ext_resource type="Texture2D" uid="uid://bla350u5d6ksr" path="res://Mgame13/Einkaufswagen.PNG" id="6_dmwqo"]
 [ext_resource type="Texture2D" uid="uid://de4h7xorj81n1" path="res://Mgame13/Katzenfutter.PNG" id="7_jw7ny"]
+[ext_resource type="Texture2D" uid="uid://gri6q0oqytvs" path="res://Mgame13/Hundefutter.PNG" id="8_g1ek3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ujd5h"]
-size = Vector2(5, 6)
+size = Vector2(3, 6)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hf5n4"]
 size = Vector2(13, 11)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j2j2l"]
+size = Vector2(13, 10.75)
 
 [node name="Mgame13" type="Node2D"]
 script = ExtResource("1_neobc")
@@ -32,27 +36,44 @@ texture = ExtResource("4_xm1b8")
 [node name="MusicPlayer" parent="." instance=ExtResource("4_5tvvx")]
 
 [node name="Einkaufswagen" type="Area2D" parent="."]
+z_index = 2
 
 [node name="Sprite2DE" type="Sprite2D" parent="Einkaufswagen"]
+z_index = 2
 position = Vector2(3, 23)
 scale = Vector2(0.04, 0.04)
 texture = ExtResource("6_dmwqo")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Einkaufswagen"]
-position = Vector2(2.5, 38)
+position = Vector2(1.5, 38)
 shape = SubResource("RectangleShape2D_ujd5h")
 
 [node name="Katzenfutter" type="Area2D" parent="."]
+z_index = 1
 
 [node name="Sprite2DK" type="Sprite2D" parent="Katzenfutter"]
+z_index = 1
 position = Vector2(-5, -8)
 scale = Vector2(0.02, 0.02)
 texture = ExtResource("7_jw7ny")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Katzenfutter"]
-position = Vector2(-5, 38)
+position = Vector2(-7, 38)
 shape = SubResource("RectangleShape2D_hf5n4")
+
+[node name="Hundefutter1" type="Area2D" parent="."]
+
+[node name="Sprite2DH1" type="Sprite2D" parent="Hundefutter1"]
+position = Vector2(10, -8)
+scale = Vector2(0.02, 0.02)
+texture = ExtResource("8_g1ek3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hundefutter1"]
+position = Vector2(10, 38)
+shape = SubResource("RectangleShape2D_j2j2l")
 
 [connection signal="area_entered" from="Einkaufswagen" to="." method="_on_einkaufswagen_area_entered"]
 [connection signal="area_entered" from="Katzenfutter" to="." method="_on_katzenfutter_area_entered"]
 [connection signal="area_exited" from="Katzenfutter" to="." method="_on_katzenfutter_area_exited"]
+[connection signal="area_entered" from="Hundefutter1" to="." method="_on_hundefutter_1_area_entered"]
+[connection signal="area_exited" from="Hundefutter1" to="." method="_on_hundefutter_1_area_exited"]
