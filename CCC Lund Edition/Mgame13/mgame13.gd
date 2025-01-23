@@ -70,7 +70,7 @@ func _process(delta):
 	if $Timer.time_left > 7.5:
 		$TimerLabel.modulate = Color(0,1,0)
 		#$TimerLabel.add_color_override("font_color",Color(0,1,0))
-	if $Timer.time_left >= 2.5 and $ Timer.time_left <= 7.5:
+	if $Timer.time_left >= 2.5 and $Timer.time_left <= 7.5:
 		$TimerLabel.modulate = Color(1,0.5,0)
 		#$TimerLabel.add_color_override("font_color", Color(1,0.5,0))
 	if $Timer.time_left >= 0 and $Timer.time_left < 2.5:
@@ -147,6 +147,9 @@ func _process(delta):
 		if Input.is_action_just_pressed("Space"):
 			gamelost()
 	if ueberlappung_wagen_kasse == true and inhalt == "HF2":
+		if Input.is_action_just_pressed("Space"):
+			gamelost()
+	if ueberlappung_wagen_kasse == true and inhalt == "":
 		if Input.is_action_just_pressed("Space"):
 			gamelost()
 
