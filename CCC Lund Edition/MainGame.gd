@@ -62,6 +62,7 @@ func setup_panel(gnumber):
 	games[gnumber - 1].get_node("Border").visible = false
 	games[gnumber - 1].scale = Vector2(2, 2)
 	print(games[gnumber - 1])
+
 	games[gnumber - 1].disable("No Signal", Color(1,1,1,0))
 	
 func activate_input(gnumber):

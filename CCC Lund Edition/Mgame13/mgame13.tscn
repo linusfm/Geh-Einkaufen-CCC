@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c0ovbmuwvax0v"]
+[gd_scene load_steps=14 format=3 uid="uid://c0ovbmuwvax0v"]
 
 [ext_resource type="Script" path="res://Mgame13/mgame13.gd" id="1_neobc"]
 [ext_resource type="PackedScene" uid="uid://c83sgl4h14273" path="res://game_over.tscn" id="2_34bc8"]
@@ -17,6 +17,12 @@ size = Vector2(13, 11)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j2j2l"]
 size = Vector2(13, 10.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_83y66"]
+size = Vector2(12, 11)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xqtud"]
+size = Vector2(20, 12)
 
 [node name="Mgame13" type="Node2D"]
 script = ExtResource("1_neobc")
@@ -72,8 +78,39 @@ texture = ExtResource("8_g1ek3")
 position = Vector2(10, 38)
 shape = SubResource("RectangleShape2D_j2j2l")
 
+[node name="Hundefutter2" type="Area2D" parent="."]
+
+[node name="Sprite2DH2" type="Sprite2D" parent="Hundefutter2"]
+position = Vector2(25, -8)
+scale = Vector2(0.02, 0.02)
+texture = ExtResource("8_g1ek3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hundefutter2"]
+position = Vector2(27, 38)
+shape = SubResource("RectangleShape2D_83y66")
+
+[node name="Kasse" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Kasse"]
+position = Vector2(-30, 38)
+shape = SubResource("RectangleShape2D_xqtud")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+
+[node name="TimerLabel" type="Label" parent="."]
+offset_left = -48.0
+offset_top = -48.0
+offset_right = -7.0
+offset_bottom = -25.0
+
 [connection signal="area_entered" from="Einkaufswagen" to="." method="_on_einkaufswagen_area_entered"]
 [connection signal="area_entered" from="Katzenfutter" to="." method="_on_katzenfutter_area_entered"]
 [connection signal="area_exited" from="Katzenfutter" to="." method="_on_katzenfutter_area_exited"]
 [connection signal="area_entered" from="Hundefutter1" to="." method="_on_hundefutter_1_area_entered"]
 [connection signal="area_exited" from="Hundefutter1" to="." method="_on_hundefutter_1_area_exited"]
+[connection signal="area_entered" from="Hundefutter2" to="." method="_on_hundefutter_2_area_entered"]
+[connection signal="area_exited" from="Hundefutter2" to="." method="_on_hundefutter_2_area_exited"]
+[connection signal="area_entered" from="Kasse" to="." method="_on_kasse_area_entered"]
+[connection signal="area_exited" from="Kasse" to="." method="_on_kasse_area_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
